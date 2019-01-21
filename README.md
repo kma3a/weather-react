@@ -1,4 +1,4 @@
-####Weather app 
+#### Weather app 
 
 This is a small weather app created via the [Open Weather api](https://openweathermap.org/api)
 
