@@ -19,7 +19,8 @@ class CurrentComponent extends Component {
   render() {
     return (
       <div>
-        <h1>Current Weather</h1>
+        <h1>Current Weather for</h1>
+        <h1>{currentWeather.name}</h1>
         <img src={`http://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`} />
         <h3> weather: {currentWeather.weather[0].main}</h3>
         <h3>Max: {currentWeather.main.temp_max}</h3>
