@@ -1,7 +1,6 @@
 import React from 'react';
 
 const OneHour = ({hour}) => {
-  console.log("I am the hour", hour);
   return (
     <div>
       <h3>Date: {Date(hour.dt_txt)}</h3>
