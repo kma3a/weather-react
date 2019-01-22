@@ -1,30 +1,38 @@
 import React, {Component} from 'react';
+import Moment from 'react-moment';
 
-
-const currentWeather = {
-  "coord":{"lon":-122.09,"lat":37.39},
-  "sys":{"type":3,"id":168940,"message":0.0297,"country":"US","sunrise":1427723751,"sunset":1427768967},
-  "weather":[{"id":800,"main":"Clear","description":"Sky is Clear","icon":"01n"}],
-  "base":"stations",
-  "main":{"temp":285.68,"humidity":74,"pressure":1016.8,"temp_min":284.82,"temp_max":286.48},
-  "wind":{"speed":0.96,"deg":285.001},
-  "clouds":{"all":0},
-  "dt":1427700245,
-  "id":0,
-  "name":"Mountain View",
-  "cod":200
-};
 
 class CurrentComponent extends Component {
+  state = {
+    currentWeather: {}
+  };
+
+  componentDidMount() {
+    fetch('http://api.openweathermap.org/data/2.5/weather?q=London&APPID={apiKey}&units=imperial')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.setState({currentWeather: data})
+      });
+  }
   render() {
+    const {currentWeather} = this.state;
+    var main = currentWeather && currentWeather.weather && currentWeather.weather[0] && currentWeather.weather[0].main;
+    var tempMin = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_min);
+    var tempMax = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_max);
     return (
       <div>
         <h1>Current Weather for</h1>
         <h1>{currentWeather.name}</h1>
-        <img src={`http://openweathermap.org/img/w/${currentWeather.weather[0].icon}.png`} />
-        <h3> weather: {currentWeather.weather[0].main}</h3>
-        <h3>Max: {currentWeather.main.temp_max}</h3>
-        <h3>Min: {currentWeather.main.temp_min}</h3>
+        {main && 
+          <h3> weather: {main}</h3>
+        }
+        {tempMax != null &&
+          <h3>Max: {tempMax}</h3>
+        }
+        {tempMin != null && 
+          <h3>Min: {tempMin}</h3>
+        }
       </div>
     )
   }
