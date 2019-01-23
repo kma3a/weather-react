@@ -1,27 +1,28 @@
 import React, {Component} from 'react';
 import OneHour from './hourly';
+import * as Constants from '../../util/constants';
 
 class FiveDayComponent extends Component {
 
   state = {
+    name: '',
     fiveDay: {}
   };
 
   componentDidMount() {
-    console.log(process.env);
-    fetch('http://api.openweathermap.org/data/2.5/forecast?q=London&APPID='+process.env.REACT_APP_API_KEY+'&units=imperial')
+    fetch(Constants.APIURL+ Constants.FIVEDAYURL + '?q=London'+ Constants.APIKEY+ Constants.UNITS)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        this.setState({fiveDay: data})
+        this.setState({name:data.city.name,fiveDay: data})
       });
   }
   render() {
-    const {fiveDay} = this.state;
+    const {fiveDay, name} = this.state;
     return (
       <div>
         <h1>Five Day Weather for</h1>
-        <h1> {fiveDay.name}</h1>
+        <h1> {name}</h1>
         { fiveDay.list && fiveDay.list.map((single) => (
           <OneHour key={single.dt} hour={single} />
         ))}

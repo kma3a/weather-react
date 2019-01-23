@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Moment from 'react-moment';
+import * as Constants from '../../util/constants';
 
 
 class CurrentComponent extends Component {
@@ -8,7 +9,7 @@ class CurrentComponent extends Component {
   };
 
   componentDidMount() {
-    fetch('http://api.openweathermap.org/data/2.5/weather?q=London&APPID='+process.env.REACT_APP_API_KEY+'&units=imperial')
+    fetch(Constants.APIURL+ Constants.CURRENTURL + '?q=London'+ Constants.APIKEY+ Constants.UNITS)
       .then(response => response.json())
       .then(data => {
         console.log(data);
