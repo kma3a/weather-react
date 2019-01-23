@@ -5,11 +5,12 @@ import * as Constants from '../../util/constants';
 
 class CurrentComponent extends Component {
   state = {
-    currentWeather: {}
+    currentWeather: {},
+    unit: 'imperial'
   };
 
   componentDidMount() {
-    fetch(Constants.APIURL+ Constants.CURRENTURL + '?q=London'+ Constants.APIKEY+ Constants.UNITS)
+    fetch(Constants.APIURL+ Constants.CURRENTURL + '?q=Detroit'+ Constants.APIKEY+ Constants.UNITS + this.state.unit)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -17,7 +18,7 @@ class CurrentComponent extends Component {
       });
   }
   render() {
-    const {currentWeather} = this.state;
+    const {currentWeather,unit} = this.state;
     var main = currentWeather && currentWeather.weather && currentWeather.weather[0] && currentWeather.weather[0].main;
     var tempMin = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_min);
     var tempMax = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_max);
@@ -29,10 +30,10 @@ class CurrentComponent extends Component {
           <h3> weather: {main}</h3>
         }
         {tempMax != null &&
-          <h3>Max: {tempMax}</h3>
+          <h3>Max: {tempMax} &deg; {Constants[unit]}</h3>
         }
         {tempMin != null && 
-          <h3>Min: {tempMin}</h3>
+          <h3>Min: {tempMin} &deg; {Constants[unit]}</h3>
         }
       </div>
     )
