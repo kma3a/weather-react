@@ -8,7 +8,8 @@ class FiveDayComponent extends Component {
   };
 
   componentDidMount() {
-    fetch('http://api.openweathermap.org/data/2.5/forecast?q=London&APPID={apiKey}&units=imperial')
+    console.log(process.env);
+    fetch('http://api.openweathermap.org/data/2.5/forecast?q=London&APPID='+process.env.REACT_APP_API_KEY+'&units=imperial')
       .then(response => response.json())
       .then(data => {
         console.log(data);
