@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { updateLocation, updateLocationUpdated, updateUnit} from '../../reducers/locationActions';
 
@@ -12,7 +13,7 @@ const actions = {
   updateUnit
 };
 class HomeComponent extends Component {
-  componentDidMount() {
+  componentWillMount() {
     navigator.geolocation.getCurrentPosition((location) => {
       this.props.updateLocation({lat: location.coords.latitude, long: location.coords.longitude});
       this.props.updateLocationUpdated(true);
@@ -31,6 +32,8 @@ class HomeComponent extends Component {
         }
         <h3>Latitude: {location.lat}</h3>
         <h3>Longitude: {location.long}</h3>
+        <Link to='/current'> Current Weather</Link>
+        <Link to='/fiveday'> Five Day</Link>
       </div>
     )
   }
