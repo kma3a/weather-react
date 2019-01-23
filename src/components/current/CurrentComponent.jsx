@@ -1,23 +1,30 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import * as Constants from '../../util/constants';
 
+const mapState = (state) => ({
+  location: state.location
+})
 
 class CurrentComponent extends Component {
   state = {
-    currentWeather: {},
-    unit: 'imperial'
+    currentWeather: {}
   };
 
   componentDidMount() {
-    fetch(Constants.APIURL+ Constants.CURRENTURL + '?q=Detroit'+ Constants.APIKEY+ Constants.UNITS + this.state.unit)
+    const data = this.props.location;
+    console.log(data);
+    fetch(Constants.APIURL+ Constants.CURRENTURL + '?lat='+ data.location.lat+'&lon=' + data.location.long+ Constants.APIKEY+ Constants.UNITS + data.unit)
       .then(response => response.json())
       .then(data => {
-        this.setState({currentWeather: data})
+        this.setState({currentWeather: data});
       });
   }
   render() {
-    const {currentWeather,unit} = this.state;
-    var main = currentWeather && currentWeather.weather && currentWeather.weather[0] && currentWeather.weather[0].main;
+    const {unit} = this.props.location;
+    const {currentWeather} = this.state;
+    console.log(currentWeather);
+    var main = currentWeather && currentWeather.weather && currentWeather.weather[0] && currentWeather.weather[0].icon;
     var tempMin = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_min);
     var tempMax = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_max);
     return (
@@ -25,7 +32,7 @@ class CurrentComponent extends Component {
         <h1>Current Weather for</h1>
         <h1>{currentWeather.name}</h1>
         {main && 
-          <h3> weather: {main}</h3>
+          <img alt={main} src={`http://openweathermap.org/img/w/${main}.png`} />
         }
         {tempMax != null &&
           <h3>Max: {tempMax} &deg; {Constants[unit]}</h3>
@@ -38,4 +45,4 @@ class CurrentComponent extends Component {
   }
 }
 
-export default CurrentComponent;
+export default connect(mapState)(CurrentComponent);
