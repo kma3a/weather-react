@@ -4,6 +4,16 @@ A weather app created with the [open weather api](https://openweathermap.org/api
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## setup
+
+add a .env file in the root directory
+inside the .env file include:
+```
+  REACT_APP_API_KEY = {your api key}
+```
+
+this will not save to be pushed online so the api key can be kept secret.
+
 ## Available Scripts
 
 In the project directory, you can run:
