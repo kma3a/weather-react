@@ -1,28 +1,32 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import { updateLocation, updateLocationUpdated, updateUnit} from '../../reducers/locationActions';
 
+const mapState = (state) => ({
+  location: state.location
+})
+
+const actions = {
+  updateLocation,
+  updateLocationUpdated,
+  updateUnit
+};
 class HomeComponent extends Component {
-  state = {
-    location: {
-      lat: 42.3352587,
-      long: -83.04943689999999
-    },
-    locationUpdate: false
-  }
-
   componentDidMount() {
     navigator.geolocation.getCurrentPosition((location) => {
-      this.setState({location: {lat: location.coords.latitude, long: location.coords.longitude}, locationUpdate:true})
+      this.props.updateLocation({lat: location.coords.latitude, long: location.coords.longitude});
+      this.props.updateLocationUpdated(true);
     })
   }
 
   render() {
-    const {location, locationUpdate} = this.state;
+    const {location, locationUpdated} = this.props.location;
     return (
       <div>
-        {!locationUpdate && 
+        {!locationUpdated && 
           <h2>Default Location: Detroit</h2>
         }
-        {locationUpdate && 
+        {locationUpdated && 
           <h2>Current Longitude and Latitude:</h2>
         }
         <h3>Latitude: {location.lat}</h3>
@@ -32,4 +36,4 @@ class HomeComponent extends Component {
   }
 }
 
-export default HomeComponent;
+export default connect(mapState, actions)(HomeComponent);
