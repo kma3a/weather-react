@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Moment from 'react-moment';
 import * as Constants from '../../util/constants';
 
 
@@ -13,7 +12,6 @@ class CurrentComponent extends Component {
     fetch(Constants.APIURL+ Constants.CURRENTURL + '?q=Detroit'+ Constants.APIKEY+ Constants.UNITS + this.state.unit)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({currentWeather: data})
       });
   }

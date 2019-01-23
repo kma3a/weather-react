@@ -14,7 +14,6 @@ class FiveDayComponent extends Component {
     fetch(Constants.APIURL+ Constants.FIVEDAYURL + '?q=Detroit'+ Constants.APIKEY+ Constants.UNITS + this.state.unit)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({name:data.city.name,fiveDay: data})
       });
   }
