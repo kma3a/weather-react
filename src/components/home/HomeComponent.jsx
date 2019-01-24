@@ -32,8 +32,6 @@ class HomeComponent extends Component {
         }
         <h3>Latitude: {location.lat}</h3>
         <h3>Longitude: {location.long}</h3>
-        <Link to='/current'> Current Weather</Link>
-        <Link to='/fiveday'> Five Day</Link>
       </div>
     )
   }

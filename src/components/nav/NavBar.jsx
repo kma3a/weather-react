@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import { Link, withRouter} from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 
 class NavBar extends Component {
   render() {
     return (
       <div>
-        <Link to='/'>Home</Link>
-        <Link to='/current'>Current</Link>
-        <Link to='/fiveday'>Five Day</Link>
+        <NavLink to='/'>Home</NavLink>
+        <NavLink to='/current'>Current</NavLink>
+        <NavLink to='/fiveday'>Five Day</NavLink>
       </div>
     )
   }
 }
 
-export default withRouter(NavBar);
+export default NavBar;

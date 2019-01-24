@@ -10,23 +10,15 @@ import HomeComponent from './components/home/HomeComponent';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-      <Switch>
-        <Route exact path='/' component={HomeComponent}/>
-      </Switch>
-      <Route path='/(.+)'
-        render={() => (
-          <div>
-            <NavBar/>
-            <div>
-              <Switch>
-                <Route path='/current' component={CurrentComponent}/>
-                <Route path='/fiveday' component={FiveDayComponent}/>
-              </Switch>
-            </div>
-          </div>
-        )}
-      />
+      <div>
+        <NavBar/>
+        <div className='App'>
+          <Switch>
+            <Route exact path='/' component={HomeComponent}/>
+            <Route path='/current' component={CurrentComponent}/>
+            <Route path='/fiveday' component={FiveDayComponent}/>
+          </Switch>
+        </div>
       </div>
     );
   }
