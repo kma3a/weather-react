@@ -18,17 +18,23 @@ class FiveDayComponent extends Component {
     fetch(Constants.APIURL+ Constants.FIVEDAYURL + '?lat='+ data.location.lat+ '&lon='+ data.location.long + Constants.APIKEY+ Constants.UNITS + data.unit)
       .then(response => response.json())
       .then(data => {
-        console.log("data", data);
-        this.setState({name:data.city.name,fiveDay: data})
+        var locationName = (data && data.city && data.city.name )|| '';
+        this.setState({name:locationName,fiveDay: data})
       });
   }
   render() {
     const {unit} = this.props.location;
     const {name, fiveDay} = this.state;
+    console.log(fiveDay);
     return (
       <div>
-        <h1>Five Day Weather for</h1>
-        <h1> {name}</h1>
+        <h1>Five Day Weather</h1>
+        { Number(fiveDay.cod) !== 200 &&
+          <p> Sorry we have had trouble recieving your request</p>
+        }
+        { Number(fiveDay.cod) === 200 &&
+          <h1>For {name}</h1>
+        }
         { fiveDay.list && fiveDay.list.map((single) => (
           <OneHour key={single.dt} hour={single} unit={unit}/>
         ))}
