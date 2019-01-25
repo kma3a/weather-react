@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { updateUnit} from '../reducers/locationActions';
+import * as Constants from '../util/constants';
 
 const mapState = (state, ownProps) => ({
   unit : state.location.unit
@@ -10,11 +11,6 @@ const actions = {
   updateUnit
 };
 
-const tempUnits = [
-  {value: 'imperial', label: 'Fahrenheit'},
-  {value: 'metric', label: 'Celsius'},
-  {value: 'default', label: 'Kalvin'},
-];
 
 class DropDown  extends Component{
   state = {
@@ -34,9 +30,9 @@ class DropDown  extends Component{
     return (
       <div>
         <select  value={unit}  onChange={this.handleChange}>
-          <option value="imperial">Fahrenheit</option>
-          <option value="metric">Celsius</option>
-          <option value="default">Kalvin</option>
+          { Constants.tempUnits.map((data, index) => (
+            <option key={index} value={data.value}>{data.label}</option>
+          ))}
         </select>
       </div>
     )

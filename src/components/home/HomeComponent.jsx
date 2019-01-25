@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { updateLocation, updateLocationUpdated} from '../../reducers/locationActions';
-import DropDown from '../../util/dropDown';
+import DropDown from '..//dropDown';
 
 const mapState = (state) => ({
   location: state.location

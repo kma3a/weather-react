@@ -6,3 +6,9 @@ export const  UNITS = '&units=';
 export const  imperial = 'F';
 export const  metric = 'C';
 export const  kelvin = 'K';
+
+export const tempUnits = [
+  {value: 'imperial', label: 'Fahrenheit'},
+  {value: 'metric', label: 'Celsius'},
+  {value: 'default', label: 'Kalvin'},
+];
