@@ -8,6 +8,7 @@ class NavBar extends Component {
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/current'>Current</NavLink>
         <NavLink to='/fiveday'>Five Day</NavLink>
+        
       </div>
     )
   }

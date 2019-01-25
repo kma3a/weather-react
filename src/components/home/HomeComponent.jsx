@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { updateLocation, updateLocationUpdated, updateUnit} from '../../reducers/locationActions';
+import { updateLocation, updateLocationUpdated} from '../../reducers/locationActions';
+import DropDown from '../../util/dropDown';
 
 const mapState = (state) => ({
   location: state.location
@@ -10,7 +10,6 @@ const mapState = (state) => ({
 const actions = {
   updateLocation,
   updateLocationUpdated,
-  updateUnit
 };
 class HomeComponent extends Component {
   componentWillMount() {
@@ -32,6 +31,7 @@ class HomeComponent extends Component {
         }
         <h3>Latitude: {location.lat}</h3>
         <h3>Longitude: {location.long}</h3>
+        <DropDown/>
       </div>
     )
   }
