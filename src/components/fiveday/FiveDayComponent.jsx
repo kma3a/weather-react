@@ -20,7 +20,6 @@ class FiveDayComponent extends Component {
 
   getWeather = () => {
     var currentProps = this.props.location;
-    console.log(currentProps);
     fetchFiveDay(currentProps)
       .then(data => {
         var locationName = (data && data.city && data.city.name )|| '';

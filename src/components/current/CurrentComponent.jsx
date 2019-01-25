@@ -7,7 +7,6 @@ const mapState = (state) => ({
 })
 
 const fetchCurrentWeather = (data) => {
-  console.log("data", data);
   return fetch(Constants.APIURL+ Constants.CURRENTURL + '?lat='+ data.location.lat+'&lon=' + data.location.long+ Constants.APIKEY+ Constants.UNITS + data.unit)
     .then(response => response.json());
 }
@@ -43,7 +42,6 @@ class CurrentComponent extends Component {
     var main = currentWeather && currentWeather.weather && currentWeather.weather[0] && currentWeather.weather[0].icon;
     var tempMin = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_min);
     var tempMax = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_max);
-    console.log(currentWeather);
     return (
       <div>
         <h1>Current Weather</h1>
