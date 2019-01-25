@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { updateLocation, updateLocationUpdated} from '../../reducers/locationActions';
-import DropDown from '..//dropDown';
 
 const mapState = (state) => ({
   location: state.location
@@ -31,7 +30,6 @@ class HomeComponent extends Component {
         }
         <h3>Latitude: {location.lat}</h3>
         <h3>Longitude: {location.long}</h3>
-        <DropDown/>
       </div>
     )
   }

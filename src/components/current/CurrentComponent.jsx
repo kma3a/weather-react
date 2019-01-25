@@ -6,19 +6,37 @@ const mapState = (state) => ({
   location: state.location
 })
 
+const fetchCurrentWeather = (data) => {
+  console.log("data", data);
+  return fetch(Constants.APIURL+ Constants.CURRENTURL + '?lat='+ data.location.lat+'&lon=' + data.location.long+ Constants.APIKEY+ Constants.UNITS + data.unit)
+    .then(response => response.json());
+}
+
 class CurrentComponent extends Component {
   state = {
     currentWeather: {}
   };
 
-  componentDidMount() {
-    const data = this.props.location;
-    fetch(Constants.APIURL+ Constants.CURRENTURL + '?lat='+ data.location.lat+'&lon=' + data.location.long+ Constants.APIKEY+ Constants.UNITS + data.unit)
-      .then(response => response.json())
+  getWeather = () => {
+    var currentProps = this.props.location;
+      fetchCurrentWeather(currentProps)
       .then(data => {
+        data.unit = currentProps.unit;
         this.setState({currentWeather: data});
       });
   }
+
+  componentDidMount() {
+    this.getWeather();
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    if(this.props !== nextProps) {
+      this.getWeather();
+    }
+
+  }
+
   render() {
     const {unit} = this.props.location;
     const {currentWeather} = this.state;
@@ -39,11 +57,11 @@ class CurrentComponent extends Component {
           <img alt={main} src={`http://openweathermap.org/img/w/${main}.png`} />
         }
         {tempMax != null ? 
-            <h3>Max: {tempMax} &deg; {Constants[unit]}</h3> : 
+            <h3>Max: {tempMax} &deg; {Constants[currentWeather.unit]}</h3> : 
             <h3>Max: -- &deg;</h3>
         }
         {tempMin != null ? 
-          <h3>Min: {tempMin} &deg; {Constants[unit]}</h3> :
+          <h3>Min: {tempMin} &deg; {Constants[currentWeather.unit]}</h3> :
           <h3>Min: -- &deg;</h3>
         }
       </div>
