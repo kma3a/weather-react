@@ -5,7 +5,7 @@ export const  APIKEY = '&APPID='+process.env.REACT_APP_API_KEY;
 export const  UNITS = '&units=';
 export const  imperial = 'F';
 export const  metric = 'C';
-export const  kelvin = 'K';
+export const  kalvin = 'K';
 
 export const tempUnits = [
   {value: 'imperial', label: 'Fahrenheit'},

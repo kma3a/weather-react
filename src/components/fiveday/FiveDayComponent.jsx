@@ -6,6 +6,11 @@ const mapState = (state) => ({
   location: state.location
 })
 
+const fetchFiveDay = (data) => {
+  return fetch(Constants.APIURL+ Constants.FIVEDAYURL + '?lat='+ data.location.lat+ '&lon='+ data.location.long + Constants.APIKEY+ Constants.UNITS + data.unit)
+    .then(response => response.json())
+}
+
 class FiveDayComponent extends Component {
 
   state = {
@@ -13,19 +18,31 @@ class FiveDayComponent extends Component {
     fiveDay: {}
   };
 
-  componentDidMount() {
-    const data = this.props.location;
-    fetch(Constants.APIURL+ Constants.FIVEDAYURL + '?lat='+ data.location.lat+ '&lon='+ data.location.long + Constants.APIKEY+ Constants.UNITS + data.unit)
-      .then(response => response.json())
+  getWeather = () => {
+    var currentProps = this.props.location;
+    console.log(currentProps);
+    fetchFiveDay(currentProps)
       .then(data => {
         var locationName = (data && data.city && data.city.name )|| '';
-        this.setState({name:locationName,fiveDay: data})
+        var tempUnit = currentProps.unit === 'default'? 'kalvin': currentProps.unit;
+        this.setState({name:locationName,fiveDay: data, unit: tempUnit})
       });
   }
+
+  componentDidMount() {
+    this.getWeather();
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    if(this.props !== nextProps) {
+      this.getWeather();
+    }
+
+  }
+
+
   render() {
-    const {unit} = this.props.location;
-    const {name, fiveDay} = this.state;
-    console.log(fiveDay);
+    const {name, fiveDay, unit} = this.state;
     return (
       <div>
         <h1>Five Day Weather</h1>

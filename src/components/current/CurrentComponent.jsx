@@ -21,7 +21,7 @@ class CurrentComponent extends Component {
     var currentProps = this.props.location;
       fetchCurrentWeather(currentProps)
       .then(data => {
-        data.unit = currentProps.unit;
+        data.unit = currentProps.unit === 'default' ? "kalvin" : currentProps.unit;;
         this.setState({currentWeather: data});
       });
   }
