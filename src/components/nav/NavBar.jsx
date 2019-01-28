@@ -6,7 +6,6 @@ class NavBar extends Component {
   render() {
     return (
       <div>
-        <NavLink to='/'>Home</NavLink>
         <NavLink to='/current'>Current</NavLink>
         <NavLink to='/fiveday'>Five Day</NavLink>
         <DropDown/>

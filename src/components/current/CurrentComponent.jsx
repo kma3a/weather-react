@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { updateLocation, updateLocationUpdated} from '../../reducers/locationActions';
 import * as Constants from '../../util/constants';
+import getLocation from '../../util/locationUtil';
+import getWeather from '../../util/apiUtil';
+
 
 const mapState = (state) => ({
   location: state.location
 })
 
-const fetchCurrentWeather = (data) => {
-  return fetch(Constants.APIURL+ Constants.CURRENTURL + '?lat='+ data.location.lat+'&lon=' + data.location.long+ Constants.APIKEY+ Constants.UNITS + data.unit)
-    .then(response => response.json());
+const actions= {
+  updateLocation,
+  updateLocationUpdated
 }
 
 class CurrentComponent extends Component {
@@ -16,28 +20,38 @@ class CurrentComponent extends Component {
     currentWeather: {}
   };
 
-  getWeather = () => {
-    var currentProps = this.props.location;
-      fetchCurrentWeather(currentProps)
+  fetchWeather = () => {
+    var currentProps= this.props.location;
+    getWeather(currentProps, "current")
       .then(data => {
+        
         data.unit = currentProps.unit === 'default' ? "kalvin" : currentProps.unit;;
         this.setState({currentWeather: data});
       });
+
+  }
+
+  componentWillMount() {
+    getLocation()
+      .then((userLoc) => {
+        this.props.updateLocation(userLoc);
+        this.props.updateLocationUpdated(true);
+      });
+    
   }
 
   componentDidMount() {
-    this.getWeather();
+    this.fetchWeather();
   }
 
   componentDidUpdate(nextProps, nextState) {
     if(this.props !== nextProps) {
-      this.getWeather();
+      this.fetchWeather();
     }
 
   }
 
   render() {
-    const {unit} = this.props.location;
     const {currentWeather} = this.state;
     var main = currentWeather && currentWeather.weather && currentWeather.weather[0] && currentWeather.weather[0].icon;
     var tempMin = currentWeather && currentWeather.main &&  Number(currentWeather.main.temp_min);
@@ -67,4 +81,4 @@ class CurrentComponent extends Component {
   }
 }
 
-export default connect(mapState)(CurrentComponent);
+export default connect(mapState, actions)(CurrentComponent);

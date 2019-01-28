@@ -1,26 +1,33 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import OneHour from './hourly';
-import * as Constants from '../../util/constants';
+import { updateLocation, updateLocationUpdated} from '../../reducers/locationActions';
+import getWeather from '../../util/apiUtil';
+import getLocation from '../../util/locationUtil';
+
+
+const actions= {
+  updateLocation,
+  updateLocationUpdated
+}
+
 const mapState = (state) => ({
   location: state.location
 })
 
-const fetchFiveDay = (data) => {
-  return fetch(Constants.APIURL+ Constants.FIVEDAYURL + '?lat='+ data.location.lat+ '&lon='+ data.location.long + Constants.APIKEY+ Constants.UNITS + data.unit)
-    .then(response => response.json())
-}
-
 class FiveDayComponent extends Component {
+  constructor(props) {
+    super(props);
 
-  state = {
-    name: '',
-    fiveDay: {}
-  };
+    this.state = {
+      name: '',
+      fiveDay: {}
+    };
+  }
 
-  getWeather = () => {
+  fetchWeather = () => {
     var currentProps = this.props.location;
-    fetchFiveDay(currentProps)
+    getWeather(currentProps, 'fiveday')
       .then(data => {
         var locationName = (data && data.city && data.city.name )|| '';
         var tempUnit = currentProps.unit === 'default'? 'kalvin': currentProps.unit;
@@ -28,15 +35,23 @@ class FiveDayComponent extends Component {
       });
   }
 
+  componentWillMount() {
+    getLocation()
+      .then((userLoc) => {
+        this.props.updateLocation(userLoc);
+        this.props.updateLocationUpdated(true);
+      });
+    
+  }
+
   componentDidMount() {
-    this.getWeather();
+    this.fetchWeather();
   }
 
   componentDidUpdate(nextProps, nextState) {
     if(this.props !== nextProps) {
-      this.getWeather();
+      this.fetchWeather();
     }
-
   }
 
 
@@ -59,4 +74,4 @@ class FiveDayComponent extends Component {
   }
 }
 
-export default connect(mapState)(FiveDayComponent);
+export default connect(mapState,actions)(FiveDayComponent);

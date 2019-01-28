@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import NavBar from './components/nav/NavBar';
 import CurrentComponent from './components/current/CurrentComponent';
 import FiveDayComponent from './components/fiveday/FiveDayComponent';
-import HomeComponent from './components/home/HomeComponent';
 
 
 class App extends Component {
@@ -14,7 +13,7 @@ class App extends Component {
         <NavBar/>
         <div className='App'>
           <Switch>
-            <Route exact path='/' component={HomeComponent}/>
+            <Redirect exact from='/' to='/current'/>
             <Route path='/current' component={CurrentComponent}/>
             <Route path='/fiveday' component={FiveDayComponent}/>
           </Switch>
