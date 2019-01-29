@@ -25,9 +25,7 @@ function withAPI(WrappedComponent, appProps) {
     };
 
     fetchWeather = () => {
-      console.log("props", this.props);
       var currentProps= this.props.location;
-      console.log("current", this.state);
       return fetch(Constants.APIURL+ apiUrl[this.state.data.page] + '?lat='+ currentProps.location.lat+'&lon=' + currentProps.location.long+ Constants.APIKEY+ Constants.UNITS + currentProps.unit)
         .then(response => response.json())
         .then(data => {
@@ -40,10 +38,8 @@ function withAPI(WrappedComponent, appProps) {
       new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition((location) => {
           var parsedLocation = {lat: location.coords.latitude, long: location.coords.longitude};
-          console.log("location: ", parsedLocation);
           this.props.updateLocation(parsedLocation);
           this.props.updateLocationUpdated(true);
-          console.log("props", this.props);
           resolve();
         });
       })

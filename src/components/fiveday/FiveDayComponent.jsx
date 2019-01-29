@@ -1,72 +1,22 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import withAPI from '../HOC/withAPI';
 import OneHour from './hourly';
-import { updateLocation, updateLocationUpdated} from '../../reducers/locationActions';
-import getWeather from '../../util/apiUtil';
-import getLocation from '../../util/locationUtil';
-
-
-const actions= {
-  updateLocation,
-  updateLocationUpdated
-}
-
-const mapState = (state) => ({
-  location: state.location
-})
 
 class FiveDayComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      name: '',
-      fiveDay: {}
-    };
-  }
-
-  fetchWeather = () => {
-    var currentProps = this.props.location;
-    getWeather(currentProps, 'fiveday')
-      .then(data => {
-        var locationName = (data && data.city && data.city.name )|| '';
-        var tempUnit = currentProps.unit === 'default'? 'kalvin': currentProps.unit;
-        this.setState({name:locationName,fiveDay: data, unit: tempUnit})
-      });
-  }
-
-  componentWillMount() {
-    getLocation()
-      .then((userLoc) => {
-        this.props.updateLocation(userLoc);
-        this.props.updateLocationUpdated(true);
-      });
-    
-  }
-
-  componentDidMount() {
-    this.fetchWeather();
-  }
-
-  componentDidUpdate(nextProps, nextState) {
-    if(this.props !== nextProps) {
-      this.fetchWeather();
-    }
-  }
-
-
   render() {
-    const {name, fiveDay, unit} = this.state;
+    const {weatherData} = this.props;
+    const name = (weatherData && weatherData.city && weatherData.city.name) || '';
+    const {unit} = this.props.weatherData;
     return (
       <div>
         <h1>Five Day Weather</h1>
-        { Number(fiveDay.cod) !== 200 &&
+        { Number(weatherData.cod) !== 200 &&
           <p> Sorry we have had trouble recieving your request</p>
         }
-        { Number(fiveDay.cod) === 200 &&
+        { (Number(weatherData.cod) === 200 ) &&
           <h1>For {name}</h1>
         }
-        { fiveDay.list && fiveDay.list.map((single) => (
+        { weatherData.list && weatherData.list.map((single) => (
           <OneHour key={single.dt} hour={single} unit={unit}/>
         ))}
       </div>
@@ -74,4 +24,4 @@ class FiveDayComponent extends Component {
   }
 }
 
-export default connect(mapState,actions)(FiveDayComponent);
+export default withAPI(FiveDayComponent, {page:'fiveday'});
