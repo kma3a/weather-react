@@ -24,4 +24,5 @@ class FiveDayComponent extends Component {
   }
 }
 
+FiveDayComponent.displayName = 'FiveDayComponent';
 export default withAPI(FiveDayComponent, {page:'fiveday'});

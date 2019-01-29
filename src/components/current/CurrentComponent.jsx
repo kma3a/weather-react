@@ -3,7 +3,7 @@ import * as Constants from '../../util/constants';
 import withAPI from '../HOC/withAPI';
 
 class CurrentComponent extends Component {
-    render() {
+  render() {
     const {weatherData} = this.props;
     var main = weatherData && weatherData.weather && weatherData.weather[0] && weatherData.weather[0].icon;
     var tempMin = weatherData && weatherData.main &&  Number(weatherData.main.temp_min);
@@ -33,4 +33,5 @@ class CurrentComponent extends Component {
   }
 }
 
+CurrentComponent.displayName = 'CurrentComponent';
 export default withAPI(CurrentComponent, {page:'current'});

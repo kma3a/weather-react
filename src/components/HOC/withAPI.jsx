@@ -17,6 +17,10 @@ const actions= {
   updateLocationUpdated
 }
 
+function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
+
 function withAPI(WrappedComponent, appProps) {
   class apiContainer extends Component {
     state = {
@@ -59,6 +63,7 @@ function withAPI(WrappedComponent, appProps) {
       )
     }
   }
+  apiContainer.displayName = `WithAPI(${getDisplayName(WrappedComponent)})`;
   return connect(mapState, actions)(apiContainer); 
 }
 
