@@ -1,0 +1,12 @@
+.hourly {
+  display: inline-block;
+  width: 200px;
+  margin: .5% 1%;
+  padding: 5% 2%;
+  background-color: #DEEFB7
+}
+
+.hourly h3 {
+  width: 110px;
+  margin: 0 auto;
+}

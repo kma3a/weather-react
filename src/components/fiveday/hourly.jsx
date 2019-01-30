@@ -1,10 +1,11 @@
 import React from 'react';
 import Moment from 'react-moment';
 import * as Constants from '../../util/constants';
+import '../../styles/hourly.css';
 
 const OneHour = ({hour, unit}) => {
   return (
-    <div>
+    <div className='hourly'>
       <h3>
         {hour && hour.dt_txt &&
           <Moment date={hour.dt_txt} format="MM/DD/YYYY h:mm A"/>

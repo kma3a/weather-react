@@ -1,6 +1,6 @@
 .nav {
   background-color: #2E5266;
-  height: 30%;
+  height: 40px;
   width: 100%;
   display: inline-block;
 }
@@ -9,9 +9,9 @@
   background: white;
   border-radius: 3px;
   float: left;
-  margin: .6%;
-  height: 100%;
-  width: 7%;
+  margin: 5px;
+  height: 30px;
+  width: 100px;
   text-align: center;
   text-decoration: none;
   color: #525252;
@@ -23,13 +23,10 @@
 
 .nav div {
   float: right;
-  margin: .3%;
-  height: 100%;
-  width: 7%;
 }
 
 .nav div select {
-  margin: 5%;
-  height: 50%;
-  width: 90%;
+  margin: 5px;
+  height: 30px;
+  width: 100px;
 }
