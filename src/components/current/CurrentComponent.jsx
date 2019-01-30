@@ -16,7 +16,7 @@ class CurrentComponent extends Component {
           <p> Sorry we have had trouble recieving your request</p>
         }
         { Number(weatherData.cod) === 200 && weatherData.name  &&
-          <h1 class="city">{weatherData.name}</h1>
+          <h2 class="city">{weatherData.name}</h2>
         }
         <div className="weatherInfo">
           {main && 

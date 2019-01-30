@@ -6,7 +6,7 @@ import '../../styles/hourly.css';
 const OneHour = ({hour, unit}) => {
   return (
     <div className='hourly'>
-      <h3>
+      <h3 className='time'>
         {hour && hour.dt_txt &&
           <Moment date={hour.dt_txt} format="MM/DD/YYYY h:mm A"/>
         }
