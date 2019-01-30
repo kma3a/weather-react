@@ -1,0 +1,29 @@
+.nav {
+  background: black;
+  height: 50px;
+}
+
+.nav a {
+  background: white;
+  border-radius: 3px;
+  display: inline-block;
+  margin: .6%;
+  height: 50%;
+  width: 7%;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+.nav div {
+  float: right;
+  margin: .3%;
+  height: 100%;
+  width: 7%;
+}
+
+.nav div select {
+  margin: 5%;
+  height: 50%;
+  width: 90%;
+}
