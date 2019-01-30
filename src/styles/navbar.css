@@ -1,5 +1,5 @@
 .nav {
-  background: black;
+  background-color: #2E5266;
   height: 50px;
 }
 
@@ -12,7 +12,11 @@
   width: 7%;
   text-align: center;
   text-decoration: none;
-  color: black;
+  color: #525252;
+}
+
+.nav a.active {
+  background: #A8D0DB;
 }
 
 .nav div {
