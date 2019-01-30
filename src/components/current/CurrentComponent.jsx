@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import * as Constants from '../../util/constants';
 import withAPI from '../HOC/withAPI';
+import '../../styles/current.css';
 
 class CurrentComponent extends Component {
   render() {
@@ -9,25 +10,27 @@ class CurrentComponent extends Component {
     var tempMin = weatherData && weatherData.main &&  Number(weatherData.main.temp_min);
     var tempMax = weatherData && weatherData.main &&  Number(weatherData.main.temp_max);
     return (
-      <div>
+      <div className='current'>
         <h1>Current Weather</h1>
         { Number(weatherData.cod) !== 200 &&
           <p> Sorry we have had trouble recieving your request</p>
         }
         { Number(weatherData.cod) === 200 && weatherData.name  &&
-          <h1>{weatherData.name}</h1>
+          <h1 class="city">{weatherData.name}</h1>
         }
-        {main && 
-          <img alt={main} src={`http://openweathermap.org/img/w/${main}.png`} />
-        }
-        {tempMax != null ? 
-            <h3>Max: {tempMax} &deg; {Constants[weatherData.unit]}</h3> : 
-            <h3>Max: -- &deg;</h3>
-        }
-        {tempMin != null ? 
-          <h3>Min: {tempMin} &deg; {Constants[weatherData.unit]}</h3> :
-          <h3>Min: -- &deg;</h3>
-        }
+        <div className="weatherInfo">
+          {main && 
+            <img alt={main} src={`http://openweathermap.org/img/w/${main}.png`} />
+          }
+          {tempMax != null ? 
+              <h3>Max: {tempMax} &deg; {Constants[weatherData.unit]}</h3> : 
+              <h3>Max: -- &deg;</h3>
+          }
+          {tempMin != null ? 
+            <h3>Min: {tempMin} &deg; {Constants[weatherData.unit]}</h3> :
+            <h3>Min: -- &deg;</h3>
+          }
+        </div>
       </div>
     )
   }

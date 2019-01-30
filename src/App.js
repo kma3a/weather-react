@@ -9,9 +9,9 @@ import FiveDayComponent from './components/fiveday/FiveDayComponent';
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className='App'>
         <NavBar/>
-        <div className='App'>
+        <div className='Content'>
           <Switch>
             <Redirect exact from='/' to='/current'/>
             <Route path='/current' component={CurrentComponent}/>
