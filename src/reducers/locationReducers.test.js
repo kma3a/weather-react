@@ -1,4 +1,4 @@
-import {updateLocation} from './locationReducer';
+import {updateLocation, updateLocationUpdated, updateUnit} from './locationReducer';
 
 describe('location Reducer', ()=>{
   it('should have updateLocation', ()=>{
@@ -9,4 +9,15 @@ describe('location Reducer', ()=>{
     let state = updateLocation({}, {location:updateLoc});
     expect(state.location).toEqual(updateLoc);
   });
+
+  it('should allow for updated location updated', ()=>{
+    let state = updateLocationUpdated({}, {locationUpdated:false});
+    expect(state.locationUpdated).toEqual(false);
+  });
+
+  it('should allow for update unit', ()=>{
+    let state = updateUnit({unit:"text"}, {unit:"time"});
+    expect(state.unit).toEqual("time");
+  });
+
 });
