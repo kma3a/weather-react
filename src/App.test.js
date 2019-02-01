@@ -42,7 +42,6 @@ describe("App", ()=>{
     let action;
     store.dispatch(updateLocation({lat:37.5407, long: -77.4360}));
     action = store.getActions();
-    console.log(action);
     expect(action[0].type).toBe("UPDATE_LOCATION");
   });
 });
