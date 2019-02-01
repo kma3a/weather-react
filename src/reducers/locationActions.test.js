@@ -1,12 +1,4 @@
-import React from 'react';
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { configureStore} from '../store/configStore';
 import {updateLocation, updateLocationUpdated, updateUnit } from './locationActions';
-
-const store = configureStore();
-
-Enzyme.configure({ adapter: new Adapter() });
 
 const updatedLocation = {
   lat: 37.5407,
