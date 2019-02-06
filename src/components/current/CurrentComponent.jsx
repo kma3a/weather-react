@@ -6,6 +6,7 @@ import '../../styles/current.css';
 class CurrentComponent extends Component {
   render() {
     const {weatherData} = this.props;
+    console.log("weather", weatherData);
     var main = weatherData && weatherData.weather && weatherData.weather[0] && weatherData.weather[0].icon;
     var tempMin = weatherData && weatherData.main &&  Number(weatherData.main.temp_min);
     var tempMax = weatherData && weatherData.main &&  Number(weatherData.main.temp_max);
@@ -16,7 +17,7 @@ class CurrentComponent extends Component {
           <p> Sorry we have had trouble recieving your request</p>
         }
         { Number(weatherData.cod) === 200 && weatherData.name  &&
-          <h2 class="city">{weatherData.name}</h2>
+          <h2 className="city">{weatherData.name}</h2>
         }
         <div className="weatherInfo">
           {main && 
@@ -37,4 +38,4 @@ class CurrentComponent extends Component {
 }
 
 CurrentComponent.displayName = 'CurrentComponent';
-export default withAPI(CurrentComponent, {page:'current'});
+export default withAPI({page:'current'})(CurrentComponent);
