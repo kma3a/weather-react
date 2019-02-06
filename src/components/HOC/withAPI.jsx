@@ -9,7 +9,7 @@ const apiUrl = {
 };
 
 const mapState = (state) => ({
-  location: state.location
+  data: state.location
 })
 
 const actions= {
@@ -21,7 +21,7 @@ function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
-function withAPI(WrappedComponent, appProps) {
+const withAPI = (appProps) => (WrappedComponent) => {
   class apiContainer extends Component {
     state = {
       weatherData: {},
@@ -29,12 +29,16 @@ function withAPI(WrappedComponent, appProps) {
     };
 
     fetchWeather = () => {
-      var currentProps= this.props.location;
+      console.log("PROPS", this.props);
+      var currentProps= this.props.data;
       return fetch(Constants.APIURL+ apiUrl[this.state.data.page] + '?lat='+ currentProps.location.lat+'&lon=' + currentProps.location.long+ Constants.APIKEY+ Constants.UNITS + currentProps.unit)
-        .then(response => response.json())
+        .then(response => {  return response.json()})
         .then(data => {
           data.unit = currentProps.unit === 'default' ? "kalvin" : currentProps.unit;
-          this.setState({weatherData: data});
+          if(this.mounted) {
+            this.setState({weatherData: data});
+          }
+          this.mounted = true;
         });
     }
 
@@ -47,7 +51,7 @@ function withAPI(WrappedComponent, appProps) {
           resolve();
         });
       })
-        .then(this.fetchWeather);
+      .then(this.fetchWeather);
     }
 
     componentDidUpdate(nextProps, nextState) {
