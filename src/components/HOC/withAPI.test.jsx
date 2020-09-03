@@ -67,12 +67,6 @@ describe('withAPI', ()=>{
     });
 
     it('should build the mockComponent', ()=>{
-      console.log("container", container.html());
-      expect(container.html()).toEqual('<div><h1> MockData</h1></div>');
-    });
-
-    it('should add the weatherData if it iget it back', ()=>{
-      console.log("container", container.html());
       expect(container.html()).toEqual('<div><h1> MockData</h1></div>');
     });
 
